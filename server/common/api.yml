@@ -6,97 +6,125 @@ info:
 servers:
   - url: /api/v1
 tags:
-  - name: Examples
-    description: Simple example endpoints
+  - name: Business, Products, Orders
+    description: Endpoints for businesses, products and orders
   - name: Specification
     description: The swagger API specification
+
 paths:
-  /examples:
+  /business:
     get:
       tags:
-        - Examples
-      description: Fetch all examples
+        - Business
+      description: Fetch all businesses
       responses:
         200:
-          description: Return the example with the specified id
+          description: Return all businesses
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Example'
+                  $ref: '#/components/schemas/Business'
         4XX:
-          description: Example not found
+          description: Business not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Example not found
+          description: Business not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    post:
-      tags:
-        - Examples
-      description: Create a new example
-      requestBody:
-        description: an example
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExampleBody'
-        required: true
-      responses:
-        201:
-          description: Return the example with the specified id
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Example'
-        4XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        5XX:
-          description: Example not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /examples/{id}:
+  /business/{id}:
     get:
       tags:
-        - Examples
+        - Business
       parameters:
         - name: id
           in: path
-          description: The id of the example to retrieve
+          description: The id of the business to retrieve
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
-          description: Return the example with the specified id
+          description: Return the business with the specified id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Example'
+                $ref: '#/components/schemas/Business'
         4XX:
-          description: Example not found
+          description: Business not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Example not found
+          description: Business not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /product:
+    get:
+      tags:
+        - Product
+      description: Fetch all products
+      responses:
+        200:
+          description: Return all products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        4XX:
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}:
+    get:
+      tags:
+        - Product
+      parameters:
+        - name: id
+          in: path
+          description: The id of the product to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return the product with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        4XX:
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /spec:
     get:
       tags:
@@ -107,25 +135,64 @@ paths:
           content: {}
 components:
   schemas:
-    Example:
+    
+    Business:
       type: object
       properties:
-        id:
-          type: integer
-          example: 3
-        name:
+        businessId:
           type: string
-          example: example 3
+        paymentAccountId:
+          type: string
+        email:
+          type: string
+        active:
+          type: string
+        name: 
+          type: string
+        description:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        area:
+          type: string
+        address:
+          type: string
+        imageURL:
+          type: string
+        website:
+          type: string
+        phone:
+          type: string
+
+    Product:
+      type: object
+      properties:
+          active:
+            type: boolean
+          businessId:
+            type: string
+          currency:
+            type: string
+          description:
+            type: string
+          images:
+            type: array
+            items:
+              type: string
+          name:
+            type: string
+          price:
+            type: number
+          productId:
+            type: string
+
+
     Error:
       type: object
       additionalProperties: true
-
-    ExampleBody:
-      title: example
-      required:
-        - name
-      type: object
-      properties:
-        name:
-          type: string
-          example: no_stress
