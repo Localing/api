@@ -1,0 +1,13 @@
+version: '3'
+services:
+  api:
+    image: localing-api
+    build: .
+    networks:
+      - backend
+    ports:
+      - "8081:8081"
+
+networks:
+  backend:
+    driver: bridge
