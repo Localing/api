@@ -2,11 +2,11 @@ import ProductService from '../../services/product.service';
 
 export class Controller {
   all(req, res) {
-    ProductService.all().then((r) => res.json(r));
+    ProductService.all(req.params.businessId).then((r) => res.json(r));
   }
 
   byId(req, res) {
-    ProductService.byId(req.params.id).then((r) => {
+    ProductService.byId(req.params.businessId, req.params.productId).then((r) => {
       if (r) res.json(r);
       else res.status(404).end();
     });

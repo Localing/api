@@ -2,11 +2,11 @@ import l from '../../common/logger';
 import axios from 'axios';
 import { response } from 'express';
 
-class ProductService {
+class ConsumerService {
 
     constructor(env) {
         this.api = axios.create({
-            baseURL: process.env.PRODUCT_DEV_API,
+            baseURL: process.env.CONSUMER_DEV_API,
             timeout: 10000,
             headers: {
                 'Accept': 'application/json',
@@ -16,20 +16,21 @@ class ProductService {
         });
     }
 
-    async all(businessId) {
-        l.info(`${this.constructor.name}.all(${businessId})`);
+
+    async all() {
+        l.info(`${this.constructor.name}.all()`);
         try {
-            let response = await this.api.get(`/business/${businessId}/product`)
+            let response = await this.api.get('/consumer')
             return response.data;
         } catch (error) {
             return error;
         }
     }
 
-    async byId(businessId, productId) {
-        l.info(`${this.constructor.name}.byId(${businessId}, ${productId})`);
+    async byId(id) {
+        l.info(`${this.constructor.name}.byId(${id})`);
         try {
-            let response = await this.api.get(`/business/${businessId}/product/${productId}`)
+            let response = await this.api.get(`/consumer/${id}`)
             return response.data;
         } catch (error) {
             return error;
@@ -52,4 +53,4 @@ class ProductService {
     }
 }
 
-export default new ProductService();
+export default new ConsumerService();

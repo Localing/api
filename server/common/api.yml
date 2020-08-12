@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
-  title: api
-  description: Localing API
+  title: Localing Gateway API
+  description: Localing Gateway API
   version: 1.0.0
 servers:
   - url: /api/v1
 tags:
-  - name: Business, Products, Orders
-    description: Endpoints for businesses, products and orders
+  - name: Localing Gateway API 
+    description: for Business, Consumer, Product and Order Data
   - name: Specification
     description: The swagger API specification
 
@@ -68,14 +68,77 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /product:
+  /consumer:
+    get:
+      tags:
+        - Consumer
+      description: Fetch all consumers
+      responses:
+        200:
+          description: Return all consumers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consumer'
+        4XX:
+          description: Business not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Business not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /consumer/{id}:
+    get:
+      tags:
+        - Consumer
+      parameters:
+        - name: id
+          in: path
+          description: The id of the consumer to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return the consumer with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumer'
+        4XX:
+          description: Consumer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Consumer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{businessId}:
     get:
       tags:
         - Product
-      description: Fetch all products
+      parameters:
+        - name: businessId
+          in: path
+          description: The id of the business to fetch products for
+          required: true
+          schema:
+            type: string
+      description: Fetch all products for a business
       responses:
         200:
-          description: Return all products
+          description: Return all products for a business
           content:
             application/json:
               schema:
@@ -94,14 +157,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /product/{id}:
+  /product/{businessId}/{productId}:
     get:
       tags:
         - Product
       parameters:
-        - name: id
+        - name: businessId
           in: path
-          description: The id of the product to retrieve
+          description: The id of the business to fetch product from
+          required: true
+          schema:
+            type: string
+        - name: productId
+          in: path
+          description: The id of the product
           required: true
           schema:
             type: string
@@ -168,6 +237,14 @@ components:
         website:
           type: string
         phone:
+          type: string
+
+    Consumer:
+      type: object
+      properties:
+        consumerId: 
+          type: string
+        email:
           type: string
 
     Product:
