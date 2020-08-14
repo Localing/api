@@ -1,0 +1,11 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "localing/localing-api"
+    },
+    "Ports": [
+      {
+        "ContainerPort": "8081"
+      }
+    ]
+  }
