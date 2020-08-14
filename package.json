@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "localing-api",
   "version": "1.0.0",
   "description": "Localing API",
   "main": "index.js",
@@ -42,6 +42,5 @@
     "pino-pretty": "^4.1.0",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2"
-  },
-  "author": "Carmine DiMascio <cdimascio@gmail.com> (https://github.com/cdimascio)"
+  }
 }
