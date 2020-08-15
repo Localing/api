@@ -193,6 +193,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+                
+  /checkout:
+    post:
+      tags:
+        - Checkout
+      summary: Check out a cart
+
+      requestBody:
+        description: A cart
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+
+      responses:
+        200:
+          description: Checkout successful
 
   /spec:
     get:
@@ -202,9 +220,12 @@ paths:
         200:
           description: Return the API specification
           content: {}
+
 components:
   schemas:
-    
+
+    AnyValue: {}
+
     Business:
       type: object
       properties:
@@ -269,7 +290,14 @@ components:
           productId:
             type: string
 
-
+    Cart:
+      type: object
+      properties:
+        consumerId:
+          type: string
+        vendorCarts:
+          type: array
+              
     Error:
       type: object
       additionalProperties: true
