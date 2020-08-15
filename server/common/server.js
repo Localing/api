@@ -9,6 +9,7 @@ import oas from './oas';
 
 import l from './logger';
 
+const cors = require('cors');
 const app = new Express();
 const exit = process.exit;
 
@@ -23,6 +24,7 @@ export default class ExpressServer {
         limit: process.env.REQUEST_LIMIT || '100kb',
       })
     );
+    app.use(cors());
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(Express.static(`${root}/public`));
