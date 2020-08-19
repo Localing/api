@@ -46,7 +46,7 @@ paths:
         - Business
       summary: Get a business by id
       parameters:
-        - name: id
+        - name: businessId
           in: path
           description: The id of the business
           required: true
@@ -106,7 +106,7 @@ paths:
         - BusinessAccount
       summary: Get a business account by id
       parameters:
-        - name: id
+        - name: businessId
           in: path
           description: The id of the business account
           required: true
@@ -166,7 +166,7 @@ paths:
         - ConsumerAccount
       summary: Get a consumer account by id
       parameters:
-        - name: id
+        - name: consumerId
           in: path
           description: The id of the consumer account to retrieve
           required: true
