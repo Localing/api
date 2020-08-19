@@ -3,8 +3,8 @@ import productController from './product.controller';
 
 export default express
     .Router()
-    .post('/', productController.create)
+    .post('/:businessId', productController.create)
     .get('/:businessId', productController.all)
     .get('/:businessId/:productId', productController.byId)
-    .put('/:id', productController.update)
-    .delete('/:id', productController.delete)
+    .delete('/:businessId/:productId', productController.delete)
+    .put('/:businessId/:productId', productController.update)

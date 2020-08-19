@@ -1,6 +1,7 @@
 import l from '../../common/logger';
 import axios from 'axios';
 import { response } from 'express';
+import P from 'pino';
 
 class ProductService {
 
@@ -19,7 +20,7 @@ class ProductService {
     async all(businessId) {
         l.info(`${this.constructor.name}.all(${businessId})`);
         try {
-            let response = await this.api.get(`/business/${businessId}/product`)
+            let response = await this.api.get(`/business/${businessId}/product`);
             return response.data;
         } catch (error) {
             return error;
@@ -29,26 +30,41 @@ class ProductService {
     async byId(businessId, productId) {
         l.info(`${this.constructor.name}.byId(${businessId}, ${productId})`);
         try {
-            let response = await this.api.get(`/business/${businessId}/product/${productId}`)
+            let response = await this.api.get(`/business/${businessId}/product/${productId}`);
             return response.data;
         } catch (error) {
             return error;
         }
     }
 
-    async create(body) {
+    async create(businessId, body) {
         l.info(`${this.constructor.name}.create()`);
-        // TBD
+        try {
+            let response = await this.api.post(`/business/${businessId}/product`, body);
+            return response.data;
+        } catch (error) {
+            return error;
+        }
     }
 
-    async update(id, body) {
-        l.info(`${this.constructor.name}.update(${sub})`);
-        // TBD
+    async update(businessId, productId, body) {
+        l.info(`${this.constructor.name}.update(${businessId}, ${productId})`);
+        try {
+            let response = await this.api.put(`/business/${businessId}/product/${productId}`, body);
+            return response.data;
+        } catch (error) {
+            return error;
+        }
     }
 
-    async delete(id) {
-        l.info(`${this.constructor.name}.delete(${sub})`);
-        // TBD
+    async delete(businessId, productId) {
+        l.info(`${this.constructor.name}.delete(${businessId}, ${productId})`);
+        try {
+            let response = await this.api.delete(`/business/${businessId}/product/${productId}`);
+            return response.data
+        } catch (error) {
+            return error;
+        }
     }
 }
 

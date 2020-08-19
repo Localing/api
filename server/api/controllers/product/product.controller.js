@@ -13,13 +13,13 @@ export class Controller {
   }
 
   create(req, res) {
-    ProductService.create(req.body).then((r) =>
+    ProductService.create(req.params.businessId, req.body).then((r) =>
       res.status(201).location(`/api/v1/product/${r.id}`).json(r)
     );
   }
 
   update(req, res){
-    ProductService.update(req.params.id, req.body).then((result) => {
+    ProductService.update(req.params.businessId, req.params.productId, req.body).then((result) => {
       res.json(result);
     })
     .catch((error) => {
@@ -28,7 +28,7 @@ export class Controller {
   }
 
   delete(req, res){
-    ProductService.delete(req.params.id).then((result) => {
+    ProductService.delete(req.params.businessId, req.params.productId).then((result) => {
       res.json(result);
     })
     .catch((error) => {
