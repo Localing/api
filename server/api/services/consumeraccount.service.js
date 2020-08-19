@@ -1,8 +1,7 @@
 import l from '../../common/logger';
 import axios from 'axios';
-import { response } from 'express';
 
-class ConsumerService {
+class ConsumerAccountService {
 
     constructor(env) {
         this.api = axios.create({
@@ -16,7 +15,6 @@ class ConsumerService {
         });
     }
 
-
     async all() {
         l.info(`${this.constructor.name}.all()`);
         try {
@@ -27,30 +25,16 @@ class ConsumerService {
         }
     }
 
-    async byId(id) {
-        l.info(`${this.constructor.name}.byId(${id})`);
+    async byId(consumerId) {
+        l.info(`${this.constructor.name}.byId(${consumerId})`);
         try {
-            let response = await this.api.get(`/consumer/${id}`)
+            let response = await this.api.get(`/consumer/${consumerId}`)
             return response.data;
         } catch (error) {
             return error;
         }
     }
 
-    async create(body) {
-        l.info(`${this.constructor.name}.create()`);
-        // TBD
-    }
-
-    async update(id, body) {
-        l.info(`${this.constructor.name}.update(${sub})`);
-        // TBD
-    }
-
-    async delete(id) {
-        l.info(`${this.constructor.name}.delete(${sub})`);
-        // TBD
-    }
 }
 
-export default new ConsumerService();
+export default new ConsumerAccountService();

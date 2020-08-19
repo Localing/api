@@ -16,36 +16,39 @@ paths:
     get:
       tags:
         - Business
-      description: Fetch all businesses
+      summary: Get all businesses
+      description: Fetches all businesses
       responses:
         200:
-          description: Return all businesses
+          description: All businesses
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Business'
+                  $ref: '#/components/schemas/BusinessAccount'
         4XX:
-          description: Business not found
+          description: Businesses not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Business not found
+          description: Error fetching businesses
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /business/{id}:
+
+  /business/{businessId}:
     get:
       tags:
         - Business
+      summary: Get a business by id
       parameters:
         - name: id
           in: path
-          description: The id of the business to retrieve
+          description: The id of the business
           required: true
           schema:
             type: string
@@ -55,7 +58,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Business'
+                $ref: '#/components/schemas/BusinessAccount'
         4XX:
           description: Business not found
           content:
@@ -63,45 +66,109 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Business not found
+          description: Error fetching business
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /consumer:
+
+  /businessaccount:
     get:
       tags:
-        - Consumer
-      description: Fetch all consumers
+        - BusinessAccount
+      summary: Get all business accounts
+      description: Fetch all business accounts
       responses:
         200:
-          description: Return all consumers
+          description: All business accounts
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Consumer'
+                  $ref: '#/components/schemas/BusinessAccount'
         4XX:
-          description: Business not found
+          description: Business accounts not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Business not found
+          description: Error fetching business accounts
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /consumer/{id}:
+
+  /businessaccount/{businessId}:
     get:
       tags:
-        - Consumer
+        - BusinessAccount
+      summary: Get a business account by id
       parameters:
         - name: id
           in: path
-          description: The id of the consumer to retrieve
+          description: The id of the business account
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return the business account with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessAccount'
+        4XX:
+          description: Business account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error fetching business account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /consumeraccount:
+    get:
+      tags:
+        - ConsumerAccount
+      summary: Get all consumer accounts
+      description: Fetch all consumer accounts
+      responses:
+        200:
+          description: Return all consumer accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConsumerAccount'
+        4XX:
+          description: Consumer accounts not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error fetching consumer accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /consumeraccount/{consumerId}:
+    get:
+      tags:
+        - ConsumerAccount
+      summary: Get a consumer account by id
+      parameters:
+        - name: id
+          in: path
+          description: The id of the consumer account to retrieve
           required: true
           schema:
             type: string
@@ -111,19 +178,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Consumer'
+                $ref: '#/components/schemas/ConsumerAccount'
         4XX:
-          description: Consumer not found
+          description: Consumer account not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Consumer not found
+          description: Error fetching consumer account
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
   /product/{businessId}:
     get:
       tags:
@@ -294,9 +362,7 @@ paths:
 components:
   schemas:
 
-    AnyValue: {}
-
-    Business:
+    BusinessAccount:
       type: object
       properties:
         businessId:
@@ -330,7 +396,7 @@ components:
         phone:
           type: string
 
-    Consumer:
+    ConsumerAccount:
       type: object
       properties:
         consumerId: 

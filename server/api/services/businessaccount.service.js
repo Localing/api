@@ -1,7 +1,7 @@
 import l from '../../common/logger';
 import axios from 'axios';
 
-class BusinessService {
+class BusinessAccountService {
 
     constructor(env) {
         this.api = axios.create({
@@ -37,4 +37,4 @@ class BusinessService {
     }
 }
 
-export default new BusinessService();
+export default new BusinessAccountService();
