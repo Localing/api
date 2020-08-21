@@ -5,12 +5,12 @@ class BusinessService {
 
     constructor(env) {
         this.api = axios.create({
-            baseURL: process.env.BUSINESS_DEV_API,
+            baseURL: process.env.BUSINESS_API,
             timeout: 10000,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'X-Api-Key': process.env.DEV_API_KEY
+                'X-Api-Key': process.env.API_KEY
             }
         });
     }
