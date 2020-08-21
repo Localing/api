@@ -1,6 +1,14 @@
 import CognitoExpress from 'cognito-express';
 
 class Authorizer {
+
+    static formatToken(token) {
+        if (token.startsWith("Bearer ")) {
+            token = token.slice(7, token.length).trimLeft();
+        }
+        return token;
+    }
+
     verifyBusiness(req, res, next) {
         const businessUserPool = new CognitoExpress({
             region: "eu-west-2",
@@ -11,12 +19,10 @@ class Authorizer {
 
         let token = req.headers.authorization;
 
-        if (token.startsWith("Bearer ")) {
-            token = token.slice(7, token.length).trimLeft();
-        }
-
         //Fail if token not present in header. 
         if (!token) return res.status(401).send("Authorization token required.");
+
+        token = Authorizer.formatToken(token);
 
         businessUserPool.validate(token, function (err, response) {
 
@@ -25,6 +31,7 @@ class Authorizer {
 
             // Attach user if authenticated
             res.locals.user = response;
+            res.locals.userType = "business";
             next();
         });
     }
@@ -39,12 +46,10 @@ class Authorizer {
 
         let token = req.headers.authorization;
 
-        if (token.startsWith("Bearer ")) {
-            token = token.slice(7, token.length).trimLeft();
-        }
-
         //Fail if token not present in header. 
         if (!token) return res.status(401).send("Authorization token required.");
+
+        token = Authorizer.formatToken(token);
 
         consumerUserPool.validate(token, function (err, response) {
 
@@ -75,12 +80,10 @@ class Authorizer {
 
         let token = req.headers.authorization;
 
-        if (token.startsWith("Bearer ")) {
-            token = token.slice(7, token.length).trimLeft();
-        }
-
         //Fail if token not present in header. 
         if (!token) return res.status(401).send("Authorization token required.");
+
+        token = Authorizer.formatToken(token);
 
         consumerUserPool.validate(token, function (err, response) {
             //If unable to validate with consumer pool, try business pool
@@ -92,11 +95,13 @@ class Authorizer {
                     }
                     // Attach user if able to authenticate with business pool
                     res.locals.user = response;
+                    res.locals.userType = "business";
                     next();
                 })
             } else {
                 // Attach user if authenticated with consumer pool
                 res.locals.user = response;
+                res.locals.userType = "consumer";
                 next();
             }
         });
