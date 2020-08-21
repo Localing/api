@@ -1,4 +1,6 @@
 branch-defaults:
+  authorizer:
+    environment: localing-api-dev
   master:
     environment: localing-api-dev
     group_suffix: null

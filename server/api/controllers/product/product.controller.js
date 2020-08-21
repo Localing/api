@@ -1,6 +1,6 @@
 import ProductService from '../../services/product.service';
 
-export class Controller {
+export class ProductController {
   all(req, res) {
     ProductService.all(req.params.businessId).then((r) => res.json(r));
   }
@@ -18,22 +18,22 @@ export class Controller {
     );
   }
 
-  update(req, res){
+  update(req, res) {
     ProductService.update(req.params.businessId, req.params.productId, req.body).then((result) => {
       res.json(result);
     })
-    .catch((error) => {
-      res.status(400).json(error);
-    })
+      .catch((error) => {
+        res.status(400).json(error);
+      })
   }
 
-  delete(req, res){
+  delete(req, res) {
     ProductService.delete(req.params.businessId, req.params.productId).then((result) => {
       res.json(result);
     })
-    .catch((error) => {
-      res.status(400).json(error);
-    })
+      .catch((error) => {
+        res.status(400).json(error);
+      })
   }
 }
-export default new Controller();
+export default new ProductController();

@@ -1,7 +1,5 @@
 import l from '../../common/logger';
 import axios from 'axios';
-import { response } from 'express';
-import P from 'pino';
 
 class ProductService {
 

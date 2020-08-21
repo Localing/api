@@ -72,11 +72,206 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /order/{orderId}:
+    parameters:
+      - name: orderId
+        in: path
+        description: The id of the order
+        required: true
+        schema:
+            type:
+              string
+    get:
+      tags:
+        - Order
+      summary: Get order by id
+      description: Get order by id
+      security:
+        - cognito: []
+      responses:
+        200:
+          description: All orders by business
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        4XX:
+          description: Orders not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error fetching orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /order/business/{businessId}:
+    parameters:
+      - name: businessId
+        in: path
+        description: The id of the business  
+        required: true
+        schema:
+          type: 
+            string
+    get:
+      tags:
+        - Order
+      summary: Get all orders by business id
+      security: 
+        - cognito: []    
+      description: Get all orders by business
+      responses:
+        200:
+          description: All orders by business
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        4XX:
+          description: Orders not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error fetching orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /order/consumer/{consumerId}:
+    parameters:
+      - name: consumerId
+        in: path
+        description: The id of the consumer  
+        required: true
+        schema:
+          type: 
+            string
+    get:
+      tags:
+        - Order
+      summary: Get all orders by consumer id
+      security:
+        - cognito: []
+      parameters:
+        - name: businessId
+          in: path
+          description: The id of the business
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return the business with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        4XX:
+          description: Orders not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error fetching orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /order/verify/{verificationCode}:
+    parameters:
+      - name: verificationCode
+        in: path
+        description: The order verification code
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Order
+      summary: Verify an order by verification code
+      security:
+        - cognito: []
+      description: Verifies an order by verification code
+      responses:
+        200:
+          description: A verified order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        4XX:
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error verifying order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /order/redeem:
+    post:
+      tags:
+        - Order
+      summary: Redeem an order by verification code
+      security:
+        - cognito: []
+      description: Redeem an order by verification code
+      requestBody:
+        description: A verification code
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: A redeemed order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        4XX:
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Error redeeming order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      
+
   /businessaccount:
     get:
       tags:
         - BusinessAccount
       summary: Get all business accounts
+      security:
+        - cognito: []
       description: Fetch all business accounts
       responses:
         200:
@@ -105,6 +300,8 @@ paths:
       tags:
         - BusinessAccount
       summary: Get a business account by id
+      security:
+        - cognito: []
       parameters:
         - name: businessId
           in: path
@@ -137,6 +334,8 @@ paths:
       tags:
         - ConsumerAccount
       summary: Get all consumer accounts
+      security:
+        - cognito: []
       description: Fetch all consumer accounts
       responses:
         200:
@@ -165,6 +364,8 @@ paths:
       tags:
         - ConsumerAccount
       summary: Get a consumer account by id
+      security:
+        - cognito: []
       parameters:
         - name: consumerId
           in: path
@@ -230,7 +431,8 @@ paths:
       tags:
         - Product
       summary: Add a new product to a business
-
+      security:
+        - cognito: []
       requestBody:
         description: A product
         required: true
@@ -296,7 +498,8 @@ paths:
       tags:
         - Product
       summary: Update a product by id
-
+      security:
+        - cognito: []
       requestBody:
         description: An updated product
         required: true
@@ -324,6 +527,8 @@ paths:
       tags:
         - Product
       summary: Delete a product
+      security:
+        - cognito: []
       responses:
         '204':
           description: Product deleted
@@ -337,7 +542,8 @@ paths:
       tags:
         - Checkout
       summary: Check out a cart
-
+      security:
+        - cognito: []
       requestBody:
         description: A cart
         required: true
@@ -433,7 +639,33 @@ components:
           type: string
         vendorCarts:
           type: array
-              
+    
+    Order:
+      type: object
+      properties:
+        customerName: 
+          type: string
+        customerContact:
+          type: string
+        orderCode:
+          type: string
+        orderId:
+          type: string
+        orderDate:
+          type: string
+        redeemed:
+          type: boolean
+        items:
+          type: array
+          items:
+            type: object
+
     Error:
       type: object
       additionalProperties: true
+
+  securitySchemes:
+    cognito:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
