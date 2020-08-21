@@ -4,7 +4,7 @@ class Authorizer {
     verifyBusiness(req, res, next) {
         const businessUserPool = new CognitoExpress({
             region: "eu-west-2",
-            cognitoUserPoolId: "eu-west-2_NzD6u4BOr",
+            cognitoUserPoolId: process.env.BUSINESS_USERPOOLID,
             tokenUse: "access",
             tokenExpiration: 3600000
         });
@@ -32,7 +32,7 @@ class Authorizer {
     verifyConsumer(req, res, next) {
         const consumerUserPool = new CognitoExpress({
             region: "eu-west-2",
-            cognitoUserPoolId: "eu-west-2_k7xQLLSPp",
+            cognitoUserPoolId: process.env.CONSUMER_USERPOOLID,
             tokenUse: "access",
             tokenExpiration: 3600000
         });
@@ -61,14 +61,14 @@ class Authorizer {
     verifyAny(req, res, next) {
         const businessUserPool = new CognitoExpress({
             region: "eu-west-2",
-            cognitoUserPoolId: "eu-west-2_NzD6u4BOr",
+            cognitoUserPoolId: process.env.BUSINESS_USERPOOLID,
             tokenUse: "access",
             tokenExpiration: 3600000
         });
 
         const consumerUserPool = new CognitoExpress({
             region: "eu-west-2",
-            cognitoUserPoolId: "eu-west-2_k7xQLLSPp",
+            cognitoUserPoolId: process.env.CONSUMER_USERPOOLID,
             tokenUse: "access",
             tokenExpiration: 3600000
         });
