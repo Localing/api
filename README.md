@@ -1,6 +1,6 @@
 # api
 
-Localing API
+Localing Gateway API
 
 ## Get Started
 
@@ -47,10 +47,10 @@ npm run dev:debug
 
 #### Run in *production* mode:
 
-Compiles the application and starts it in production production mode.
+Compiles the application and starts it in production mode.
 
 ```shell
-npm run compile
+npm run build
 npm start
 ```
 
@@ -69,12 +69,7 @@ npm run test:debug
 ```
 
 ## Try It
-* Open you're browser to [http://localhost:3000](http://localhost:3000)
-* Invoke the `/examples` endpoint 
-  ```shell
-  curl http://localhost:3000/api/v1/examples
-  ```
-
+* Open your browser to [http://localhost:8081](http://localhost:8081)
 
 ## Debug It
 
@@ -106,14 +101,3 @@ Fix all prettier linter errors
 ```
 npm run lint
 ```
-
-## Deploy It
-
-Deploy to CloudFoundry
-
-```shell
-cf push api
-```
-
-
-   
