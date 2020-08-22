@@ -265,36 +265,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       
 
-  /businessaccount:
-    get:
-      tags:
-        - BusinessAccount
-      summary: Get all business accounts
-      security:
-        - cognito: []
-      description: Fetch all business accounts
-      responses:
-        200:
-          description: All business accounts
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BusinessAccount'
-        4XX:
-          description: Business accounts not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        5XX:
-          description: Error fetching business accounts
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
   /businessaccount/{businessId}:
     get:
       tags:
@@ -324,36 +294,6 @@ paths:
                 $ref: '#/components/schemas/Error'
         5XX:
           description: Error fetching business account
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-  /consumeraccount:
-    get:
-      tags:
-        - ConsumerAccount
-      summary: Get all consumer accounts
-      security:
-        - cognito: []
-      description: Fetch all consumer accounts
-      responses:
-        200:
-          description: Return all consumer accounts
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ConsumerAccount'
-        4XX:
-          description: Consumer accounts not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        5XX:
-          description: Error fetching consumer accounts
           content:
             application/json:
               schema:
