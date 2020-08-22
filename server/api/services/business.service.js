@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class BusinessService {
 
-    constructor(env) {
+    constructor() {
         this.api = axios.create({
             baseURL: process.env.BUSINESS_API,
             timeout: 10000,
@@ -15,12 +15,13 @@ class BusinessService {
         });
     }
 
-
     async all() {
         l.info(`${this.constructor.name}.all()`);
         try {
             let response = await this.api.get('/business')
-            return response.data;
+            // filter out inactive businesses
+            let result = response.data.filter(business => business.active);
+            return result;
         } catch (error) {
             return error;
         }
