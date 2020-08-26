@@ -1,4 +1,4 @@
-name: Deploy master
+name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
@@ -23,4 +23,5 @@ jobs:
         application_name: localing-api
         environment_name: localing-api-dev
         region: eu-west-1
+        version_label: 1
         deployment_package: deploy.zip
