@@ -14,7 +14,9 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "aws-sdk": "^2.739.0",
     "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cognito-express": "^2.0.18",
     "cookie-parser": "^1.4.5",
