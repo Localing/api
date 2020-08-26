@@ -573,13 +573,17 @@ components:
             type: string
 
     Cart:
-      type: object
-      properties:
-        consumerId:
-          type: string
-        vendorCarts:
-          type: array
-    
+      type: array
+      items:
+        type: object
+        properties:
+          businessId:
+            type: string
+          productId:
+            type: string
+          quantity:
+            type: number
+        
     Order:
       type: object
       properties:
