@@ -496,6 +496,23 @@ paths:
         200:
           description: Checkout successful
 
+  /image:
+    post:
+      tags:
+        - Image
+      summary: Upload a product image
+      requestBody:
+        description: An image
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Image'
+
+      responses:
+        200:
+          description: Image upload
+
   /spec:
     get:
       tags:
@@ -583,6 +600,14 @@ components:
             type: string
           quantity:
             type: number
+
+    Image:
+      type: object
+      properties:
+        imageData:
+          type: string
+        productId:
+          type: string
         
     Order:
       type: object
