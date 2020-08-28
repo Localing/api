@@ -1,10 +1,11 @@
 import l from '../../common/logger';
 const AWS = require('aws-sdk');
+import { v4 as uuidv4 } from 'uuid';
 
 class ImageService {
 
-    async upload(base64, productId) {
-        l.info(`${this.constructor.name}.upload(${productId})`);
+    async upload(base64, businessId) {
+        l.info(`${this.constructor.name}.upload(${businessId})`);
         
         const { S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_AWS_REGION, S3_BUCKET } = process.env;
       
@@ -15,10 +16,11 @@ class ImageService {
         const s3 = new AWS.S3();
         const base64Data = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
         const type = base64.split(';')[0].split('/')[1];
-      
+        const imageId = uuidv4();
+
         const params = {
           Bucket: S3_BUCKET,
-          Key: `${productId}.${type}`,
+          Key: `${businessId}/${imageId}.${type}`,
           Body: base64Data,
           ACL: 'public-read',
           ContentEncoding: 'base64',
@@ -36,7 +38,7 @@ class ImageService {
            return error;
         }
         
-        return { "imageURL": location, "fileName": key };
+        return { "location": location, "key": key };
       }
 
 }

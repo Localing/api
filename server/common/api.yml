@@ -606,7 +606,7 @@ components:
       properties:
         imageData:
           type: string
-        productId:
+        businessId:
           type: string
         
     Order:
