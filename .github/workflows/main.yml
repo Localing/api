@@ -1,9 +1,9 @@
-name: Deploy to Elastic Beanstalk
+name: Deploy Production to Elastic Beanstalk
 on:
   push:
     branches:
     - master
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: localing-api
-        environment_name: localing-api-dev
+        environment_name: localing-api
         region: eu-west-1
-        version_label: 2
+        version_label: 3
         deployment_package: deploy.zip
