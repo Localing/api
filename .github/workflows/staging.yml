@@ -14,6 +14,12 @@ jobs:
 
     - name: Generate deployment package
       run: zip -r deploy.zip . -x '*.git*'
+
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}} 
       
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v11
@@ -23,5 +29,5 @@ jobs:
         application_name: localing-api
         environment_name: localing-api-staging
         region: eu-west-1
-        version_label: 3
+        version_label: ${{ steps.buildnumber.outputs.build_number }}
         deployment_package: deploy.zip
