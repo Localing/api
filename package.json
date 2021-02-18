@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "aws-sdk": "^2.832.0",
+    "aws-sdk": "^2.841.0",
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
@@ -23,28 +23,28 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-openapi-validator": "^4.10.9",
+    "express-openapi-validator": "^4.10.11",
     "pino": "^6.11.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
+    "@babel/cli": "^7.12.13",
     "@babel/core": "^7.12.10",
-    "@babel/node": "^7.12.10",
+    "@babel/node": "^7.12.13",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.13",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-env": "^7.12.13",
     "@babel/register": "^7.12.10",
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
-    "pino-pretty": "^4.3.0",
+    "pino-pretty": "^4.5.0",
     "prettier": "^2.2.1",
     "supertest": "^6.1.3"
   }
